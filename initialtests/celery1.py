@@ -19,6 +19,11 @@ Created on Fri Feb 22 03:08:33 2019
 #>>> from tasks import add
 #>>> add.delay(4, 4)
 
+#under windows there was an error used the workaround below
+#see https://github.com/celery/celery/issues/4081
+#pip install eventlet
+#celery -A <mymodule> worker -l info -P eventlet
+
 
 from tasks import add
-add.delay(4, 4)
+res=add.delay(5, 4)
