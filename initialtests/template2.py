@@ -12,6 +12,9 @@ import ast
 
 #http://localhost:5000/submit?data={'useremail': 'mikeg2105@gmail.com', 'jobtype': 'SH', 'imagefile': 'testimage.jpg'}
 
+#curl http://127.0.0.1:5000/submit -d data="{'useremail': 'mikeg2105@gmail.com', 'jobtype': 'SH', 'imagefile': 'testimage.jpg'}"
+
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -19,11 +22,13 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-
-@app.route('/submit')
+#@app.route('/submit', methods=['GET', 'PUT'])
+@app.route('/submit', methods=['GET'],)
 def submit():
     #inparams = request.args.get('data', '')
     #inparams=ast.literal_eval("{'muffin' : 'lolz', 'foo' : 'kitty'}")
+    #if request.method == 'PUT':
+    print('here')
     user = {'useremail': 'm.griffiths@sheffield.ac.uk','jobtype': 'QH', 'imagefile': '126519929316b_cal_1.png'}
     inparams=ast.literal_eval(request.args.get('data', ''))
     try:
@@ -40,30 +45,33 @@ def submit():
     try:
         user['imagefile']=inparams['imagefile']
     except:
-        user['imagefile']='shadingcor.jpg' 
-        
+        user['imagefile']='shadingcor.jpg'
+    #else:
+    #    user = {'useremail': 'm.griffiths@sheffield.ac.uk','jobtype': 'QH', 'imagefile': '126519929316b_cal_1.png'}
+
     
     #user = {'useremail': 'm.griffiths@sheffield.ac.uk','jobtype': 'QH', 'imagefile': '126519929316b_cal_1.png'}
     job = '''
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Michael Kenneth Griffiths (Self Employed) -->
-<iosim filename="iocaimanphp.xml">
-	<simulation class="GenericSteerSimulation" createmethod="1" name="mysim" nprocs="1" simulantclass="AgentModel" simulanttype="0">
-		<props flag="7" name="" numprops="3">
-			<prop flag="7" index="0" name="useremail">
-				<string>'''+user['useremail']+'''</string>
-			</prop>
-			<prop flag="7" index="1" name="imagefile">
-				<string>'''+    user['imagefile']   +'''</string>
-			</prop>
-			<prop flag="7" index="2" name="jobtype">
-				<string>'''+ user['jobtype']  +'''</string>
-			</prop>
-		</props>
-		<steps configstepfreq="1" statestepfreq="1">2</steps>
-		<fileprops configfilename="configfile.xml" configreadmethod="1" configwritemethod="1" simreadmethod="1" simwritemethod="1" statefilename="statefile.xml" statereadmethod="1" statewritemethod="1"/>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Michael Kenneth Griffiths (Self Employed) -->
+    <iosim filename="iocaimanphp.xml">
+    <simulation class="GenericSteerSimulation" createmethod="1" name="mysim" nprocs="1" simulantclass="AgentModel" simulanttype="0">
+    <props flag="7" name="" numprops="3">
+    <prop flag="7" index="0" name="useremail">
+    <string>'''+ user['useremail'] +'''</string>
+	</prop>
+	<prop flag="7" index="1" name="imagefile">
+	<string>'''+    user['imagefile']   +'''</string>
+	</prop>
+	<prop flag="7" index="2" name="jobtype">
+	<string>'''+ user['jobtype']  +'''</string>
+	</prop>
+	</props>
+	<steps configstepfreq="1" statestepfreq="1">2</steps>
+	<fileprops configfilename="configfile.xml" configreadmethod="1" configwritemethod="1" simreadmethod="1" simwritemethod="1" statefilename="statefile.xml" statereadmethod="1" statewritemethod="1"/>
 	</simulation>
-</iosim>'''
+    </iosim>'''
+    print(user)
 
 #    return job
     return user['useremail']
@@ -73,6 +81,18 @@ def submit():
 @app.route("/hellotest")
 def hellotest(): 
     return "You said: " + request.args.get('text', '')
+
+
+def submitjob(job):    
+    status=0
+    
+    #mkdir tmestamp
+    
+    #change to made directory
+    #runjob
+    
+    #remove directory
+    return status
 
 
 
