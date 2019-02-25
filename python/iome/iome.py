@@ -18,37 +18,60 @@ def loadiome(xmlfile):
     tree = ET.parse(xmlfile)
     root = tree.getroot()
 
-    for child in root.iter('props'):
-        print(child)
-        print(child.tag)
-        print(child.attrib)
-        print(child.get('numprops'))
+    #for child in root.iter('props'):
+    #    print(child)
+    #    print(child.tag)
+    #    print(child.attrib)
+    #    print(child.get('numprops'))
 
     #create a dictionary
 
-    id=1
+    id=0
+    #print('print each prop ')
     for child in root.iter('prop'):
-        print(child)
-        print(child.tag)
-        print(child.attrib)
-        test=child.attrib
+        #print(child)
+        #print(child.tag)
+        #print('attrib')
+        #print(child.attrib)
+        attribs=child.attrib
+        #print(attribs['name'])
+        prop={}
+        prop['type']='string'
+        prop['name']=attribs['name']
+        props[id]=prop
+        id=id+1
+        for val in child.iter('string'):
+            #print(val.text)
+            prop['val']=val.text
+
+
+        #test=child.attrib
+    
+    #print('print prop set')
     for val in child.iter('string'):
-        print(val.tag)
-        print(val.attrib)
-        print(val.text)
+        #print(val.tag)
+        #print(val.attrib)
+        #print(val.text)
         prop={}
         prop['val']=val.text
         prop['type']='string'
-        prop['name']=test['name']
+        prop['name']=val.attrib
         props[id]=prop
+        #print(len(props))
         id=id+1
 
-
+    for i in range(id-1):
+        prop=props[i]
+        #print(i)
+        #print(prop['type'])
+        #print(prop['name'])
+        #print(prop['val'])
+        
     f = open(xmlfile,"r")
     job = f.read() 
    
     xmldic=[]
-    xmldic.append(root)
+    xmldic.append(tree)
     xmldic.append(props)
     xmldic.append(job)    
     
@@ -57,3 +80,5 @@ def loadiome(xmlfile):
     
     return xmldic
 
+def writeiome(xmlfile, tree):
+    tree.write(xmlfile)
