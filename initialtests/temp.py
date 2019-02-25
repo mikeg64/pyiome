@@ -5,5 +5,7 @@ Spyder Editor
 This is a temporary script file.
 """
 import requests
-r = requests.get("http://localhost:5000/submit?data={'useremail': 'mikeg2106@gmail.com', 'jobtype': 'QH', 'imagefile': 'testimage.jpg'}")
+#r = requests.get("http://localhost:5000/submit?data={'useremail': 'mikeg2107@gmail.com', 'jobtype': 'SH', 'imagefile': 'testimage2.jpg'}")
+#r = requests.get("http://localhost:5000/submit?data={ 'jobtype': 'QH', 'imagefile': 'testimage3.jpg'}")
+r = requests.get("http://localhost:5000/submit?data={ 'imagefile': 'testimage3.jpg'}")
 print(r)
