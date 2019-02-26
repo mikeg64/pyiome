@@ -70,6 +70,7 @@ import ast
 import sys
 #import xml.etree.ElementTree as ET  #used by loadiome
 import iome.iome as io
+from iome.tasks import runjob
 
 app = Flask(__name__)
 
@@ -84,10 +85,7 @@ print("The arguments are: " , str(sys.argv))
 
 
 
-todos = {}
-Params = {}
-requests = {}
-
+jobtype=1
 
 @app.route("/hello")
 def hello():
@@ -107,10 +105,19 @@ def submit():
         return("Processing fault: Check input string")
         
     #Next do the job submission
-    
-    print("Job submitted")
-    return "Jobsubmitted"
-
+    #method1 submit script for system - generic scheduler
+    if jobtype == 0:
+        print("Generic Job submitted")
+        res=runjob()
+        #method2 use celery and rabbitmq for job submission
+    elif jobtype == 1:
+        print("Job submitted")
+        res=runjob.delay()
+        
+    if res==0:
+        return "Jobsubmitted"
+    else:
+        return "Jobfailed"
 
 
 
