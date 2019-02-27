@@ -70,8 +70,8 @@ import ast
 import sys
 #import xml.etree.ElementTree as ET  #used by loadiome
 import iome.iome as io
-from iome.tasks import runjob
-
+#import iome.tasks.runjob
+from tasks import runjob
 app = Flask(__name__)
 
 print("This is the name of the script: ", sys.argv[0])
