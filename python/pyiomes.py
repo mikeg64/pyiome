@@ -85,7 +85,7 @@ print("The arguments are: " , str(sys.argv))
 
 
 
-jobtype=1
+jobtype=0
 
 @app.route("/hello")
 def hello():
