@@ -1,0 +1,14 @@
+m.griffiths@sheffield.ac.uk
+mpg
+           mpg  ...      carb
+cyl             ...          
+4    26.663636  ...  1.545455
+6    19.742857  ...  3.428571
+8    15.100000  ...  3.500000
+
+[3 rows x 10 columns]
+cyl
+4    26.663636
+6    19.742857
+8    15.100000
+Name: mpg, dtype: float64
