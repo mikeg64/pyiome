@@ -18,8 +18,30 @@ Uses python  Flask with RestfulAPI to implement services over the web, datamange
 
 
 
-1. Build docker image 
-2. Start  RabbitMQ
+1. Build docker image
+
+
+2. Start Redis (if not started) or start RabbitMQ (see 3)
+
+	[Instructions for installing starting and testing REDIS](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04)
+
+	[Install celery redis python client)](http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html)
+        $ pip install -U "celery[redis]"
+
+        Change the linein tasks.py to use correct broker (REDIS or rabbitmq)
+        #app = Celery('tasks', broker='pyamqp://guest@localhost//')  #rabbitmq
+        app = Celery('tasks', broker='redis://localhost:6379/0')   #redis
+
+	First attempt with redis failed it was necessary to re-install correct version of redis client
+	pip install redis==2.10.6
+
+        [celery redis issue solution](https://github.com/celery/celery/issues/5175)
+
+	sudo service redis-server start
+	sudo service redis-server stop
+	sudo service redis-server status
+ 
+3. Start  RabbitMQ
 
 	# stop the local node
 	sudo service rabbitmq-server stop
@@ -32,7 +54,7 @@ Uses python  Flask with RestfulAPI to implement services over the web, datamange
         see: https://www.rabbitmq.com/install-rpm.html
              https://www.rabbitmq.com/install-debian.html
 
-3. Start Flask
+4. Start Flask
 
         export FLASK_APP=pyiomes.py
         export FLASK_ENV=development  #note not for debug mode
@@ -42,7 +64,7 @@ Uses python  Flask with RestfulAPI to implement services over the web, datamange
         https://medium.com/@manivannan_data/how-to-deploy-the-flask-app-as-ubuntu-service-399c0adf3606
 
 
-4. Start celery
+5. Start celery
         celery -A tasks worker --loglevel=info
 
         see: http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#first-steps

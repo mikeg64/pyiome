@@ -10,7 +10,8 @@ import os
 import time
 import subprocess
 
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
+#app = Celery('tasks', broker='pyamqp://guest@localhost//')  #rabbitmq
+app = Celery('tasks', broker='redis://localhost:6379/0')   #redis
 
 @app.task
 def runjob():

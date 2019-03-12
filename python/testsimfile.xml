@@ -9,8 +9,8 @@
 			<prop flag="7" index="1" name="imagefile">
 				<string>126519929316b_cal_1.png</string>
 			</prop>
-			<prop flag="7" index="2" name="carprop">
-				<string>mpg</string>
+			<prop flag="7" index="2" name="jobtype">
+				<string>QH</string>
 			</prop>
 		</props>
 		<steps configstepfreq="1" statestepfreq="1">2</steps>
