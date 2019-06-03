@@ -7,7 +7,11 @@ Created on Fri Feb 22 03:01:04 2019
 #see comments on celery1.py
 from celery import Celery
 
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
+#rabbit mq server
+#app = Celery('tasks', broker='pyamqp://guest@localhost//')
+
+#redis server
+app = Celery('tasks', broker='redis://localhost//')
 
 @app.task
 def add(x, y):
